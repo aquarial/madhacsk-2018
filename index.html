@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Socket.IO chat</title>
+    </head>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+
+     var Wumpus = {
+         xpos : 0,
+         ypos : 0,
+         talking : false,
+         walk : function (time) {
+             return this.ypos + ((time*10)% 10);
+         }
+     };
+
+     var w0 = Object.create(Wumpus)
+
+     var state = w0
+     var socket = io();
+
+     socket.on('increase', function(msg){
+         state.xpos += 10;
+         console.log(state)
+         console.log(w0.walk(state.xpos/10))
+     });
+
+     socket.on('decrease', function(msg){
+         state.xpos -= 10;
+         console.log(state)
+     });
+
+    </script>
+</html>
