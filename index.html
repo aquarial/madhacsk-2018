@@ -9,10 +9,10 @@
     <script>
      var canvas = document.createElement("canvas");
      var ctx = canvas.getContext("2d");
-     canvas.width = 512;
-     canvas.height = 480;
+
+     canvas.width = 1800
+     canvas.height = 800;
      document.body.appendChild(canvas);
-     ctx.fillRect(0, 0, 512, 480);
      console.log("Canvas", canvas);
      console.log("Ctx", ctx);
      var charWumpus = new Image();
@@ -47,11 +47,11 @@
          channels = info
          var index = 0
          oloop:
-         for (var w = 0; w < 4; w++) {
-             for (var h = 0; h < 4; h++) {
+         for (var h = 0; h < 4; h++) {
+             for (var w = 0; w < 4; w++) {
                  if (index >= channels.length) {break oloop;}
-                 channels[index].xpos = w * 50 + 25
-                 channels[index].ypos = h * 50 + 25
+                 channels[index].xpos = w * 350 + 100
+                 channels[index].ypos = h * 250 + 100
                  index++
              }
          }
@@ -98,7 +98,7 @@
                  var dist = Math.abs(o.ypos - w.ypos) + Math.abs(o.xpos - w.xpos)
                  //console.log("DISTS",o.ypos ,w.ypos,o.xpos, w.xpos, w.theta, Math.PI)
                  //console.log("Dist", dist);
-                 if (dist > 10) {
+                 if (dist > 40) {
                      w.theta = Math.atan2(o.ypos - w.ypos, o.xpos - w.xpos) + (Math.random() * 0.25/2 - 0.125/2);
                      //console.log("Thetaaaaaaa", w.theta);
                  } else {
@@ -109,14 +109,17 @@
              }
 
             //console.log("Theta", w.theta * 360 / 2 / Math.PI);
-            w.xpos += 4 * Math.cos(w.theta) * modifier;
-            w.ypos += 4 * Math.sin(w.theta) * modifier;
+            w.xpos += 10 * Math.cos(w.theta) * modifier;
+            w.ypos += 10 * Math.sin(w.theta) * modifier;
              //console.log(w);
          }
          //console.log("Update "  + modifier);
      }
 
      var render = function() {
+         ctx.fillStyle = "green";
+         ctx.fillRect(0, 0, canvas.width, canvas.height);
+
          var copy = []
          for (var o of wumps) {
              copy.push(JSON.parse(JSON.stringify(o)));
@@ -124,7 +127,6 @@
 
          //console.log('Copy', copy[0]);
 
-         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
          for (var w of copy) {
               var contextX = 0;
@@ -140,6 +142,15 @@
 
 
 
+         }
+
+         ctx.font = "20px Arial";
+         ctx.fillStyle = "black";
+         //ctx.
+     	   //ctx.fillStyle = "rgb(250, 250, 250)";
+         for (c of channels) {
+             //console.log("", c.xpos, c.ypos, c.name);
+             ctx.fillText(c.name,c.xpos,c.ypos);
          }
 
      }
