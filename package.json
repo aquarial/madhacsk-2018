@@ -6,6 +6,7 @@
     "bufferutil": "^4.0.0",
     "discord.js": "^11.4.2",
     "express": "^4.16.4",
+    "open": "0.0.5",
     "read-config": "^2.0.0",
     "socket.io": "^2.1.1"
   }
