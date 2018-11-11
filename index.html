@@ -9,15 +9,16 @@
     <script>
      var canvas = document.createElement("canvas");
      var ctx = canvas.getContext("2d");
-     ctx.fillStyle = "blue";
      canvas.width = 512;
      canvas.height = 480;
      document.body.appendChild(canvas);
+     ctx.fillStyle = "blue";
+     ctx.fillRect(0, 0, 512, 480);
      console.log("Canvas", canvas);
      console.log("Ctx", ctx);
      var charWumpus = new Image();
 
-        var load = false;
+     var load = false;
      charWumpus.onload = function(){
          console.log("Found charwumpus");
         load = true;
@@ -128,7 +129,7 @@
 
          console.log('Copy', copy[0]);
 
-         ctx.clearRect(0, 0, canvas.width, canvas.height);
+         //ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillText("aaaaa", 10, 10);
 
          for (var w of copy) {
@@ -140,7 +141,10 @@
               var size_x = 20;
               var size_y = 20;
         console.log("Charwumps: ", charWumpus, w.xpos, w.ypos, spriteWidth, spriteHeight, contextX, contextY,size_x,size_y);
-             if (load) {ctx.drawImage(charWumpus, w.xpos, w.ypos, spriteWidth, spriteHeight, contextX, contextY,size_x,size_y);}
+             if (load) {
+                 ctx.drawImage(charWumpus, w.xpos, w.ypos, spriteWidth, spriteHeight, contextX, contextY,size_x,size_y);
+                 //context.drawImage(charWumpus, w.xpos, w.ypos, spriteWidth, spriteHeight, contextX, contextY, size_x, size_y);
+                }
 
 
 
