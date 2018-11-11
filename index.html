@@ -12,8 +12,7 @@
      canvas.width = 512;
      canvas.height = 480;
      document.body.appendChild(canvas);
-     ctx.fillStyle = "red";
-     ctx.fillRect(10, 10, 20, 4);
+     ctx.fillRect(0, 0, 512, 480);
      console.log("Canvas", canvas);
      console.log("Ctx", ctx);
      var charWumpus = new Image();
@@ -21,163 +20,153 @@
      var load = false;
      charWumpus.onload = function(){
          console.log("Found charwumpus", charWumpus);
-         ctx.drawImage(charWumpus, 0,0);
-
         load = true;
      }
      charWumpus.src = "./wumpus2.png";
 
      console.log("Canvas", canvas);
      console.log("Ctx", ctx);
-//     var channels = []
-//     var Wumpus = {
-//         authorid : 0,
-//         xpos : 0,
-//         ypos : 0,
-//         talking : false,
-//         walktime : 0,
-//         orbit : null,
-//         age : 0,
-//         theta : 0
-//     };
-//     // Object.create(Wumpus)
-//     var canvas = document.createElement("canvas");
-//     console.log("Canva", canvas);
-//     var ctx = canvas.getContext("2d");
-//     ctx.fillStyle = "rgb(250, 0, 0)";
-//     ctx.fillRect(0,0,40,40);
-//
-//     var wumps = []
-//
-//     var socket = io();
-//
-//     socket.on('channels', function(info){
-//         channels = info
-//         var index = 0
-//         oloop:
-//         for (var w = 0; w < 4; w++) {
-//             for (var h = 0; h < 4; h++) {
-//                 if (index >= channels.length) {break oloop;}
-//                 channels[index].xpos = w * 50 + 25
-//                 channels[index].ypos = h * 50 + 25
-//                 index++
-//             }
-//         }
-//
-//         for (c of channels) {
-//             console.log("", c.xpos, c.ypos, c.name);
-//         }
-//     });
-//     socket.on('msg', function(info){
-//         var found = false
-//         for (var w of wumps) {
-//             if (w.authorid === info.authorid) {
-//                 found = w;
-//             }
-//         }
-//         if (found !== false) {
-//             found.orbit = info.chanid;
-//         }
-//
-//         if (found === false) {
-//             var o = Object.create(Wumpus)
-//             o.authorid = 0;
-//             o.xpos = 0;
-//             o.ypos = 0;
-//             o.talking = false;
-//             o.walktime = 0;
-//             o.orbit = null;
-//             o.age = 0;
-//             o.theta = 0 ;
-//             o.authorid = info.authorid
-//             o.walktime = 0;
-//             o.orbit = info.chanid;
-//             o.theta = 0;
-//             wumps.push(o);
-//         }
-//         console.log(JSON.stringify(wumps,null,2));
-//     });
-//
-//     var update = function (modifier) {
-//         for (w of wumps) {
-//             console.log("Wumpinfo: ",w.orbit, channels.find(it => it.id === w.orbit).name);
-//             if (w.orbit !== null && channels.find(it => it.id === w.orbit) !== null) {
-//                 var o = channels.find(it => it.id === w.orbit)
-//                 var dist = Math.abs(o.ypos - w.ypos) + Math.abs(o.xpos - w.xpos)
-//                 //console.log("DISTS",o.ypos ,w.ypos,o.xpos, w.xpos, w.theta, Math.PI)
-//                 //console.log("Dist", dist);
-//                 if (dist > 10) {
-//                     w.theta = Math.atan2(o.ypos - w.ypos, o.xpos - w.xpos) + (Math.random() * 0.25/2 - 0.125/2);
-//                     //console.log("Thetaaaaaaa", w.theta);
-//                 } else {
-//                     w.theta = w.theta + (Math.random() * 0.25*10 - 0.125/5)
-//                 }
-//             } else {
-//                 w.theta = w.theta + (Math.random() * 0.25*2 - 0.125*2)
-//             }
-//
-//            console.log("Theta", w.theta * 360 / 2 / Math.PI);
-//            w.xpos += 2 * Math.cos(w.theta) * modifier;
-//            w.ypos += 2 * Math.sin(w.theta) * modifier;
-//             //console.log(w);
-//         }
-//         //console.log("Update "  + modifier);
-//     }
-//
-//     var render = function() {
-//         var copy = []
-//         for (var o of wumps) {
-//             copy.push(JSON.parse(JSON.stringify(o)));
-//         }
-//
-//         console.log('Copy', copy[0]);
-//
-//         //ctx.clearRect(0, 0, canvas.width, canvas.height);
-//        ctx.fillText("aaaaa", 10, 10);
-//
-//         for (var w of copy) {
-//              var contextX = 0;
-//              var contextY = 0;
-//              var spriteWidth = 40;
-//              var spriteHeight = 40;
-//              var size_x = 20;
-//              var size_y = 20;
-//        console.log("Charwumps: ", charWumpus, w.xpos, w.ypos, spriteWidth, spriteHeight, contextX, contextY,size_x,size_y);
-//             if (load) {
-//                 //ctx.drawImage(charWumpus, 0,0,spriteWidth, spriteHeight, w.xpos, w.ypos, contextX, contextY);
-//                 ctx.drawImage(charWumpus, w.xpos, w.ypos, 100, 100);//contextX, contextY);
-//                 //context.drawImage(charWumpus, w.xpos, w.ypos, spriteWidth, spriteHeight, contextX, contextY, size_x, size_y);
-//                }
-//
-//
-//
-//         }
-//
-//     }
-//
-//     // The main game loop
-//     var main = function () {
-//        requestAnimationFrame(main);
-//
-//        // calc elapsed time since last loop
-//        now = Date.now();
-//
-//        // if enough time has elapsed, draw the next frame
-//        var delta = 4000
-//
-//        if (now - then > delta) {
-//
-//            then = now;
-//
-//            // Put your drawing code here
-//            update(delta / 1000);
-//            render();
-//        }
-//     };
-//
-//     var then = Date.now();
-//     //reset();
-//     main();
+     var channels = []
+     var Wumpus = {
+         authorid : 0,
+         xpos : 0,
+         ypos : 0,
+         talking : false,
+         walktime : 0,
+         orbit : null,
+         age : 0,
+         theta : 0
+     };
+     // Object.create(Wumpus)
+
+     var wumps = []
+
+     var socket = io();
+
+     socket.on('channels', function(info){
+         channels = info
+         var index = 0
+         oloop:
+         for (var w = 0; w < 4; w++) {
+             for (var h = 0; h < 4; h++) {
+                 if (index >= channels.length) {break oloop;}
+                 channels[index].xpos = w * 50 + 25
+                 channels[index].ypos = h * 50 + 25
+                 index++
+             }
+         }
+
+         for (c of channels) {
+             console.log("", c.xpos, c.ypos, c.name);
+         }
+     });
+     socket.on('msg', function(info){
+         var found = false
+         for (var w of wumps) {
+             if (w.authorid === info.authorid) {
+                 found = w;
+             }
+         }
+         if (found !== false) {
+             found.orbit = info.chanid;
+         }
+
+         if (found === false) {
+             var o = Object.create(Wumpus)
+             o.authorid = 0;
+             o.xpos = 0;
+             o.ypos = 0;
+             o.talking = false;
+             o.walktime = 0;
+             o.orbit = null;
+             o.age = 0;
+             o.theta = 0 ;
+             o.authorid = info.authorid
+             o.walktime = 0;
+             o.orbit = info.chanid;
+             o.theta = 0;
+             wumps.push(o);
+         }
+         console.log(JSON.stringify(wumps,null,2));
+     });
+
+     var update = function (modifier) {
+         for (w of wumps) {
+             //console.log("Wumpinfo: ",w.orbit, channels.find(it => it.id === w.orbit).name);
+             if (w.orbit !== null && channels.find(it => it.id === w.orbit) !== null) {
+                 var o = channels.find(it => it.id === w.orbit)
+                 var dist = Math.abs(o.ypos - w.ypos) + Math.abs(o.xpos - w.xpos)
+                 //console.log("DISTS",o.ypos ,w.ypos,o.xpos, w.xpos, w.theta, Math.PI)
+                 //console.log("Dist", dist);
+                 if (dist > 10) {
+                     w.theta = Math.atan2(o.ypos - w.ypos, o.xpos - w.xpos) + (Math.random() * 0.25/2 - 0.125/2);
+                     //console.log("Thetaaaaaaa", w.theta);
+                 } else {
+                     w.theta = w.theta + (Math.random() * 0.25*10 - 0.125/5)
+                 }
+             } else {
+                 w.theta = w.theta + (Math.random() * 0.25*2 - 0.125*2)
+             }
+
+            //console.log("Theta", w.theta * 360 / 2 / Math.PI);
+            w.xpos += 4 * Math.cos(w.theta) * modifier;
+            w.ypos += 4 * Math.sin(w.theta) * modifier;
+             //console.log(w);
+         }
+         //console.log("Update "  + modifier);
+     }
+
+     var render = function() {
+         var copy = []
+         for (var o of wumps) {
+             copy.push(JSON.parse(JSON.stringify(o)));
+         }
+
+         //console.log('Copy', copy[0]);
+
+         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+         for (var w of copy) {
+              var contextX = 0;
+              var contextY = 0;
+              var spriteWidth = 40;
+              var spriteHeight = 40;
+              var size_x = 20;
+              var size_y = 20;
+             //console.log("Charwumps: ", load, w.xpos, w.ypos);
+             if (load) {
+                 ctx.drawImage(charWumpus, w.xpos,w.ypos);//contextX, contextY);
+                }
+
+
+
+         }
+
+     }
+
+     // The main game loop
+     var main = function () {
+        requestAnimationFrame(main);
+
+        // calc elapsed time since last loop
+        now = Date.now();
+
+        // if enough time has elapsed, draw the next frame
+        var delta = 40
+
+        if (now - then > delta) {
+
+            then = now;
+
+            // Put your drawing code here
+            update(delta / 1000);
+            render();
+        }
+     };
+
+     var then = Date.now();
+     //reset();
+     main();
 
     </script>
     </body>
